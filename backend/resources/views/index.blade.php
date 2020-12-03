@@ -5,8 +5,9 @@
 <!-- component -->
 <!-- This is an example component -->
 <div>
-   {{-- フローティングボタン --}}
-    <div class="fixed right-8 top-16">
+
+    @if (Auth::check())
+    <div class="fixed right-8 top-16">{{-- フローティングボタン --}}
         <button
                 class="modal-open p-0 w-16 h-16 bg-blue-600 rounded-full hover:bg-blue-700 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none">
           <svg viewBox="0 0 20 20" enable-background="new 0 0 20 20" class="w-6 h-6 inline-block">
@@ -15,7 +16,9 @@
                                     C15.952,9,16,9.447,16,10z" />
           </svg>
         </button>
-      </div> {{-- フローティングボタン --}}
+    </div> {{-- フローティングボタン --}}
+    @endif
+
       {{-- TOPページ文言 --}}
       <div class="max-w-6xl mx-auto px-5 py-24">
         <div class="flex flex-wrap w-full mb-8 flex-col items-center text-center divide-y divide-yellow-500">
