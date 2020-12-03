@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[\App\Http\Controllers\TopPageController::class, 'index'])->name('top');
-
-Auth::routes();
+// Route::get('/',[\App\Http\Controllers\TopPageController::class, 'index'])->name('top');
+Route::resource('/', \App\Http\Controllers\TopPageController::class);
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'toTop'])->name('home');

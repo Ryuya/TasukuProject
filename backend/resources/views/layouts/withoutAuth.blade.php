@@ -18,7 +18,7 @@
     <![endif]-->
 </head>
 <body class="text-gray-200 bg-gray-900">
-    <header class="bg-blue-900 py-6">
+    <header class="text-gray-200 bg-gray-900 py-6">
         <div class="container mx-auto flex justify-between items-center px-6">
             <div>
                 <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-100 no-underline">
@@ -29,7 +29,7 @@
                 @guest
                     <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>
                     @if (Route::has('register'))
-                        <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('プロジェクトを公開するためにユーザー登録する') }}</a>
                     @endif
                 @else
                     <span>{{ Auth::user()->name }}</span>
