@@ -1,5 +1,6 @@
 version: "3.8"
 volumes:
+  pma-session-store:
   php-fpm-socket:
   db-store:
 services:
@@ -41,16 +42,13 @@ services:
       - MYSQL_USER=${DB_USER:-phper}
       - MYSQL_PASSWORD=${DB_PASS:-secret}
       - MYSQL_ROOT_PASSWORD=${DB_PASS:-secret}
-  phpmyadmin:
-      image: phpmyadmin/phpmyadmin
-      environment:
-        - PMA_ARBITRARY=1
-        - PMA_HOST=db
-        - PMA_USER=${DB_USER:-phper}
-        - PMA_PASSWORD=${DB_PASS:-secret}
-      links:
-        - db
-      ports:
-        - ${PHPMYADMIN_PORT:-1080}:80
-      volumes:
-        - /sessions
+  pma:
+    image: phpmyadmin/phpmyadmin:5.0.2
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=secret
+    ports:
+      - 8080:80
+    volumes:
+      - pma-session-store:/sessions

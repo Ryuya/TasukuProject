@@ -41,34 +41,59 @@
         <div class="divide-y divide-none">
             <div class="flex flex-wrap -m-4 divide-none">
                 {{-- foreachでプロジェクトモデルを回す --}}
+                @foreach ($projects as $project)
                 <div class="xl:w-1/3 md:w-1/2 p-4 ">{{-- カード１ --}}
                     <div class="border border-gray-300 p-6 rounded-lg xl:h-96">
-                        <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
-                            <svg class=" fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 32l34.9 395.8L191.5 480l157.6-52.2L384 32H0zm308.2 127.9H124.4l4.1 49.4h175.6l-13.6 148.4-97.9 27v.3h-1.1l-98.7-27.3-6-75.8h47.7L138 320l53.5 14.5 53.7-14.5 6-62.2H84.3L71.5 112.2h241.1l-4.4 47.7z"/></svg>
+                        <div class="xl:h-64 overflow-scroll">
+                            <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                                <svg class=" fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 32l34.9 395.8L191.5 480l157.6-52.2L384 32H0zm308.2 127.9H124.4l4.1 49.4h175.6l-13.6 148.4-97.9 27v.3h-1.1l-98.7-27.3-6-75.8h47.7L138 320l53.5 14.5 53.7-14.5 6-62.2H84.3L71.5 112.2h241.1l-4.4 47.7z"/></svg>
+                            </div>
+                            <h2 class="text-lg  font-medium title-font mb-3"> {{$project->title}} </h2>
+                            <p class="leading-relaxed text-base">
+                                {{$project->description}}
+                                </p>
+
+                            <div class="text-center mt-2 leading-none flex justify-between w-full">
+                                <span class=" mr-3 inline-flex items-center leading-none text-sm  py-1 ">
+
+                                </span>
+                                <span class=" inline-flex items-center leading-none text-sm">
+                                <svg width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+                                    <g fill="none" fill-rule="evenodd">
+                                    <path fill="#D8D8D8" d="M9.2 6.583v11.08h3.5V6.583zm6.4 11.084h3.5V3h-3.5z"/>
+                                    <path fill="#667EEA" d="M2.6 17.667h3.5v-7.334H2.6z"/></g></svg>
+                                    {{ $project->user->name }}
+                                </span>
+                            </div>
                         </div>
-                        <h2 class="text-lg  font-medium title-font mb-3"> 独習者支援サービス（Tasuku） </h2>
-                        <p class="leading-relaxed text-base">
-                            このサイト自身のプロジェクトです。
-                            ご意見などありましたら、<a href="#">こちら</a>にメールください。
-
-                            </p>
-
-                        <div class="text-center mt-2 leading-none flex justify-between w-full">
-                            <span class=" mr-3 inline-flex items-center leading-none text-sm  py-1 ">
-                            40min
-                            </span>
-                            <span class=" inline-flex items-center leading-none text-sm">
-                            <svg width="22" height="22" xmlns="http://www.w3.org/2000/svg">
-                                <g fill="none" fill-rule="evenodd">
-                                <path fill="#D8D8D8" d="M9.2 6.583v11.08h3.5V6.583zm6.4 11.084h3.5V3h-3.5z"/>
-                                <path fill="#667EEA" d="M2.6 17.667h3.5v-7.334H2.6z"/></g></svg>
-                                Higashi
-                            </span>
+                        <div class=" p-6 flex items-center justify-around rounded-lg xl:h-24">
+                            @if ($project->github_url)
+                            <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                                    <a href="{{ $project->github_url }}" target="_blank">
+                                        <img src="https://github.com/favicon.ico">
+                                    </a>
+                            </div>
+                            @endif
+                            @if ($project->drawio_url)
+                                <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                                        <a href="{{ $project->drawio_url }}" target="_blank">
+                                            <img src="https://draw.io/favicon.ico">
+                                        </a>
+                                </div>
+                            @endif
+                            @if ($project->mindmap_url)
+                                <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                                        <a href="{{ $project->mindmap_url }}" target="_blank">
+                                            <img src="https://coggle.it/favicon.ico">
+                                        </a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>{{-- カード１ --}}
+                @endforeach
 
-                <div class="xl:w-1/3 md:w-1/2 p-4 ">
+                {{-- <div class="xl:w-1/3 md:w-1/2 p-4 ">
                     <div class="border border-gray-300 p-6 rounded-lg xl:h-96">
                         <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
                             <svg class=" fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 32l34.9 395.8L191.5 480l157.6-52.2L384 32H0zm308.2 127.9H124.4l4.1 49.4h175.6l-13.6 148.4-97.9 27v.3h-1.1l-98.7-27.3-6-75.8h47.7L138 320l53.5 14.5 53.7-14.5 6-62.2H84.3L71.5 112.2h241.1l-4.4 47.7z"/></svg>
@@ -148,7 +173,7 @@
                             </span>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
 
@@ -167,34 +192,64 @@
                 </div>
 
                 <!-- Add margin if you want to see some of the overlay behind the modal-->
-                <div class="modal-content py-4 text-left px-6">
-                    <!--Title-->
-                    <div class="flex justify-between items-center pb-3">
-                    <p class="text-2xl font-bold">プロジェクト新規登録</p>
-                    <div class="modal-close cursor-pointer z-50">
-                        <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                        <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-                        </svg>
+                @php
+                 $user = Auth::user();
+                @endphp
+                @if (Auth::check())
+                    <form method="POST" action="{{ route('createProject', ['user_id' => $user->id]) }}">
+                @else
+                    <form>
+                @endif
+                    @csrf
+                    <div class="modal-content py-4 text-left px-6">
+                        <!--Title-->
+                        <div class="flex justify-between items-center pb-3">
+                        <p class="text-2xl font-bold">プロジェクト新規登録</p>
+                        <div class="modal-close cursor-pointer z-50">
+                            <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+                            </svg>
+                        </div>
+                        </div>
+
+                        <!--Body-->
+                        <p>Modal content can go here</p>
+
+                        <label class="block">
+                            <span class="text-gray-700">ProjectTitle</span>
+                            <input name="title" class="form-input mt-1 block w-full text-black" placeholder="ProjectTitle">
+                        </label>
+                        <label class="block">
+                            <span class="text-gray-700">Textarea</span>
+                            <textarea name="description" class="form-textarea mt-1 block w-full text-black" rows="3" placeholder="Enter some long form content."></textarea>
+                          </label>
+                        <label class="block">
+                            <span class="text-gray-700">Github</span>
+                            <input name="github_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@github.com">
+                          </label>
+                          <label class="block">
+                            <span class="text-gray-700">draw.io</span>
+                            <input name="drawio_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@drawio.com">
+                          </label>
+                          <label class="block">
+                            <span class="text-gray-700">coggle.it</span>
+                            <input name="mindmap_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@coggle.com">
+                          </label>
+                        {{-- <select class="px-4 py-3 rounded-full">
+                            <option value="Ruby on Rails"> Ruby on Rails</option>
+                            <option value="Unity"> Unity </option>
+                            <option value="Unity"> Flutter </option>
+                        </select> --}}
+
+
+                        <!--Footer-->
+                        <div class="flex justify-end pt-2">
+                        <button class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2" type='submit'></button>
+                        <button class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400"submit>新規登録</button>
+                        </div>
+
                     </div>
-                    </div>
-
-                    <!--Body-->
-                    <p>Modal content can go here</p>
-
-                    <select class="px-4 py-3 rounded-full">
-                        <option value="Ruby on Rails"> Ruby on Rails</option>
-                        <option value="Unity"> Unity </option>
-                        <option value="Unity"> Flutter </option>
-                    </select>
-
-
-                    <!--Footer-->
-                    <div class="flex justify-end pt-2">
-                    <button class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Action</button>
-                    <button class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close</button>
-                    </div>
-
-                </div>
+                </form>
             </div> {{-- Modal --}}
             <script>
                 var openmodal = document.querySelectorAll('.modal-open')

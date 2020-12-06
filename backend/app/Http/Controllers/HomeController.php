@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Project;
 
 class HomeController extends Controller
 {
@@ -23,12 +24,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $projects = Project::all();
+        return view('index',[
+            'projects' => $projects,
+         ]);
     }
 
     public function toTop()
     {
-        return view('index');
-
+        $projects = Project::all();
+        return view('index',[
+            'projects' => $projects,
+         ]);
     }
 }

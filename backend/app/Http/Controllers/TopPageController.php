@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Project;
 class TopPageController extends Controller
 {
     /**
@@ -23,6 +23,9 @@ class TopPageController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $projects = Project::all();
+        return view('index',[
+            'projects' => $projects,
+         ]);
     }
 }
