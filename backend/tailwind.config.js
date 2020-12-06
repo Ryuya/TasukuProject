@@ -8,8 +8,6 @@ module.exports = {
   },
   variants: {},
   plugins: [
-    require([
-        '@tailwindcss/custom-forms','@tailwindcss/ui'
-    ]),
+    require('@tailwindcss/ui'),
   ]
 }

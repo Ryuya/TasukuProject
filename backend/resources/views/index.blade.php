@@ -213,35 +213,30 @@
                         </div>
 
                         <!--Body-->
-                        <p>Modal content can go here</p>
+                        <p class="text-center">Github Projectを公開しましょう。</p>
+                        <p class="text-center">設計図を公開しましょう。</p>
+                        <p class="text-center">マインドマップを公開しましょう。</p>
 
                         <label class="block">
-                            <span class="text-gray-700">ProjectTitle</span>
+                            <span class="text-white">プロジェクト名</span>
                             <input name="title" class="form-input mt-1 block w-full text-black" placeholder="ProjectTitle">
                         </label>
                         <label class="block">
-                            <span class="text-gray-700">Textarea</span>
+                            <span class="text-white">プロジェクト概要</span>
                             <textarea name="description" class="form-textarea mt-1 block w-full text-black" rows="3" placeholder="Enter some long form content."></textarea>
                           </label>
                         <label class="block">
-                            <span class="text-gray-700">Github</span>
+                            <span class="text-white">Github カンバンURL</span>
                             <input name="github_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@github.com">
                           </label>
                           <label class="block">
-                            <span class="text-gray-700">draw.io</span>
+                            <span class="text-white">draw.io 設計図</span>
                             <input name="drawio_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@drawio.com">
                           </label>
                           <label class="block">
-                            <span class="text-gray-700">coggle.it</span>
+                            <span class="text-white">coggle.it マインドマップ</span>
                             <input name="mindmap_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@coggle.com">
                           </label>
-                        {{-- <select class="px-4 py-3 rounded-full">
-                            <option value="Ruby on Rails"> Ruby on Rails</option>
-                            <option value="Unity"> Unity </option>
-                            <option value="Unity"> Flutter </option>
-                        </select> --}}
-
-
                         <!--Footer-->
                         <div class="flex justify-end pt-2">
                         <button class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2" type='submit'></button>
