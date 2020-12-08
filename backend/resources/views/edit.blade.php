@@ -41,8 +41,8 @@
         <div class="divide-y divide-none">
             <div class="flex flex-wrap -m-4 divide-none">
                 {{-- foreachでプロジェクトモデルを回す --}}
-                @foreach ($projects as $project)
-                <div class="xl:w-1/3 md:w-1/2 p-4 ">{{-- カード１ --}}
+                {{-- @foreach ($projects as $project)
+                <div class="xl:w-1/3 md:w-1/2 p-4 ">
                     <div class="border border-gray-300 p-6 rounded-lg xl:h-96">
                         <div class="xl:h-64 overflow-scroll">
                             <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
@@ -66,7 +66,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class=" p-6 flex items-center justify-around rounded-lg xl:h-12">
+                        <div class=" p-6 flex items-center justify-around rounded-lg xl:h-24">
                             @if ($project->github_url)
                             <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
                                     <a href="{{ $project->github_url }}" target="_blank">
@@ -89,15 +89,9 @@
                                 </div>
                             @endif
                         </div>
-                        @if (Auth::id() == $project->user->id)
-                            <div class="h-12">
-                                <a href="{{ route('showEditProject',['project_id' => $project->id]) }}"> 編集</a>
-                            </div>
-                        @endif
-
                     </div>
-                </div>{{-- カード１ --}}
-                @endforeach
+                </div>
+                @endforeach --}}
 
                 {{-- <div class="xl:w-1/3 md:w-1/2 p-4 ">
                     <div class="border border-gray-300 p-6 rounded-lg xl:h-96">
@@ -202,7 +196,7 @@
                  $user = Auth::user();
                 @endphp
                 @if (Auth::check())
-                    <form method="POST" action="{{ route('createProject', ['user_id' => $user->id]) }}">
+                    <form method="POST" action="{{ route('editStoreProject', ['project_id' => $project->id]) }}">
                 @else
                     <form>
                 @endif
@@ -225,23 +219,23 @@
 
                         <label class="block">
                             <span class="text-white">プロジェクト名</span>
-                            <input name="title" class="form-input mt-1 block w-full text-black" placeholder="ProjectTitle">
+                        <input name="title" class="form-input mt-1 block w-full text-black" placeholder="ProjectTitle" value="{{old('title', $project->title)}}">
                         </label>
                         <label class="block">
                             <span class="text-white">プロジェクト概要</span>
-                            <textarea name="description" class="form-textarea mt-1 block w-full text-black" rows="3" placeholder="Enter some long form content."></textarea>
+                            <textarea name="description" class="form-textarea mt-1 block w-full text-black" rows="3" placeholder="Enter some long form content.">{{old('description', $project->description)}}</textarea>
                           </label>
                         <label class="block">
                             <span class="text-white">Github カンバンURL</span>
-                            <input name="github_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@github.com">
+                            <input name="github_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@github.com" value="{{old('github_url', $project->github_url)}}">
                           </label>
                           <label class="block">
                             <span class="text-white">draw.io 設計図</span>
-                            <input name="drawio_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@drawio.com">
+                            <input name="drawio_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@drawio.com" value="{{old('drawio_url', $project->drawio_url)}}">
                           </label>
                           <label class="block">
                             <span class="text-white">coggle.it マインドマップ</span>
-                            <input name="mindmap_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@coggle.com">
+                            <input name="mindmap_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@coggle.com" value="{{old('mindmap_url', $project->mindmap_url)}}">
                           </label>
                         <!--Footer-->
                         <div class="flex justify-end pt-2">
@@ -254,33 +248,36 @@
             </div> {{-- Modal --}}
             <script>
                 var openmodal = document.querySelectorAll('.modal-open')
-                for (var i = 0; i < openmodal.length; i++) {
-                openmodal[i].addEventListener('click', function(event){
-                    event.preventDefault()
-                    toggleModal()
-                })
-                }
+                // const body = document.querySelector('body')
+                toggleModal();
 
-                const overlay = document.querySelector('.modal-overlay')
-                overlay.addEventListener('click', toggleModal)
+                // for (var i = 0; i < openmodal.length; i++) {
+                // openmodal[i].addEventListener('click', function(event){
+                //     event.preventDefault()
+                //     // toggleModal()
+                // })
+                // }
 
-                var closemodal = document.querySelectorAll('.modal-close')
-                for (var i = 0; i < closemodal.length; i++) {
-                closemodal[i].addEventListener('click', toggleModal)
-                }
+                // const overlay = document.querySelector('.modal-overlay')
+                // overlay.addEventListener('click', toggleModal)
 
-                document.onkeydown = function(evt) {
-                evt = evt || window.event
-                var isEscape = false
-                if ("key" in evt) {
-                    isEscape = (evt.key === "Escape" || evt.key === "Esc")
-                } else {
-                    isEscape = (evt.keyCode === 27)
-                }
-                if (isEscape && document.body.classList.contains('modal-active')) {
-                    toggleModal()
-                }
-                };
+                // var closemodal = document.querySelectorAll('.modal-close')
+                // for (var i = 0; i < closemodal.length; i++) {
+                // closemodal[i].addEventListener('click', toggleModal)
+                // }
+
+                // document.onkeydown = function(evt) {
+                // evt = evt || window.event
+                // var isEscape = false
+                // if ("key" in evt) {
+                //     isEscape = (evt.key === "Escape" || evt.key === "Esc")
+                // } else {
+                //     isEscape = (evt.keyCode === 27)
+                // }
+                // if (isEscape && document.body.classList.contains('modal-active')) {
+                //     // toggleModal()
+                // }
+                // };
 
 
                 function toggleModal () {

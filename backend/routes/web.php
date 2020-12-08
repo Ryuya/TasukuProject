@@ -13,9 +13,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/',[\App\Http\Controllers\TopPageController::class, 'index'])->name('top');
-Route::post('/{user_id}/create',[\App\Http\Controllers\ProjectController::class, 'create'])->name('createProject');
-
 Auth::routes();
+Route::get('/',[\App\Http\Controllers\TopPageController::class, 'index'])->name('top');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::post('/{user_id}/create/project',[\App\Http\Controllers\ProjectController::class, 'create'])->name('createProject');
+    Route::get('/{project_id}/edit/project/',[\App\Http\Controllers\ProjectController::class, 'showEdit'])->name('showEditProject');
+    Route::post('/{project_id}/edit/project/',[\App\Http\Controllers\ProjectController::class, 'editStore'])->name('editStoreProject');
+});
+
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
