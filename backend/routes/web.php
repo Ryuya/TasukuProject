@@ -20,6 +20,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/{user_id}/create/project',[\App\Http\Controllers\ProjectController::class, 'create'])->name('createProject');
     Route::get('/{project_id}/edit/project/',[\App\Http\Controllers\ProjectController::class, 'showEdit'])->name('showEditProject');
     Route::post('/{project_id}/edit/project/',[\App\Http\Controllers\ProjectController::class, 'editStore'])->name('editStoreProject');
+    Route::post('/{project_id}/delete/project/',[\App\Http\Controllers\ProjectController::class, 'delete'])->name('DeleteProject');
 });
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');

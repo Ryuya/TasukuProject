@@ -45,25 +45,41 @@
                 <div class="xl:w-1/3 md:w-1/2 p-4 ">{{-- カード１ --}}
                     <div class="border border-gray-300 p-6 rounded-lg xl:h-96">
                         <div class="xl:h-64 overflow-scroll">
-                            <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
-                                <svg class=" fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 32l34.9 395.8L191.5 480l157.6-52.2L384 32H0zm308.2 127.9H124.4l4.1 49.4h175.6l-13.6 148.4-97.9 27v.3h-1.1l-98.7-27.3-6-75.8h47.7L138 320l53.5 14.5 53.7-14.5 6-62.2H84.3L71.5 112.2h241.1l-4.4 47.7z"/></svg>
+                            <div class="h-12 flex justify-between ">
+                                <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                                    <svg class=" fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 32l34.9 395.8L191.5 480l157.6-52.2L384 32H0zm308.2 127.9H124.4l4.1 49.4h175.6l-13.6 148.4-97.9 27v.3h-1.1l-98.7-27.3-6-75.8h47.7L138 320l53.5 14.5 53.7-14.5 6-62.2H84.3L71.5 112.2h241.1l-4.4 47.7z"/></svg>
+                                </div>
+                                @php
+                                    //TODO userが放送中であるか取得する。
+                                    $isOnAIR = true;
+                                @endphp
+                                @if ($isOnAIR)
+                                    <div class="">
+                                    <button class=" px-4 right bg-red-500 p-3 rounded-lg text-white hover:bg-indigo-400 mr-2"
+                                  name = "edit">ON AIR</button>
+                                  </div>
+                                @endif
+
                             </div>
-                            <h2 class="text-lg  font-medium title-font mb-3"> {{$project->title}} </h2>
-                            <p class="leading-relaxed text-base">
-                                {{$project->description}}
-                                </p>
 
-                            <div class="text-center mt-2 leading-none flex justify-between w-full">
-                                <span class=" mr-3 inline-flex items-center leading-none text-sm  py-1 ">
+                            <div class="xl:h-52 overflow-scroll">
+                                    <h2 class="text-lg  font-medium title-font mb-3"> {{$project->title}} </h2>
+                                    <p class="leading-relaxed text-base">
+                                        {{$project->description}}
+                                        </p>
 
-                                </span>
-                                <span class=" inline-flex items-center leading-none text-sm">
-                                <svg width="22" height="22" xmlns="http://www.w3.org/2000/svg">
-                                    <g fill="none" fill-rule="evenodd">
-                                    <path fill="#D8D8D8" d="M9.2 6.583v11.08h3.5V6.583zm6.4 11.084h3.5V3h-3.5z"/>
-                                    <path fill="#667EEA" d="M2.6 17.667h3.5v-7.334H2.6z"/></g></svg>
-                                    {{ $project->user->name }}
-                                </span>
+                                    <div class="text-center mt-2 leading-none flex justify-between w-full">
+                                        <span class=" mr-3 inline-flex items-center leading-none text-sm  py-1 ">
+
+                                        </span>
+                                        <span class=" inline-flex items-center leading-none text-sm">
+                                        <svg width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+                                            <g fill="none" fill-rule="evenodd">
+                                            <path fill="#D8D8D8" d="M9.2 6.583v11.08h3.5V6.583zm6.4 11.084h3.5V3h-3.5z"/>
+                                            <path fill="#667EEA" d="M2.6 17.667h3.5v-7.334H2.6z"/></g></svg>
+                                            {{ $project->user->name }}
+                                        </span>
+                                    </div>
                             </div>
                         </div>
                         <div class=" p-6 flex items-center justify-around rounded-lg xl:h-12">
@@ -253,6 +269,7 @@
                 </form>
             </div> {{-- Modal --}}
             <script>
+
                 var openmodal = document.querySelectorAll('.modal-open')
                 for (var i = 0; i < openmodal.length; i++) {
                 openmodal[i].addEventListener('click', function(event){

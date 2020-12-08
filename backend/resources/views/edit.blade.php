@@ -238,46 +238,61 @@
                             <input name="mindmap_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@coggle.com" value="{{old('mindmap_url', $project->mindmap_url)}}">
                           </label>
                         <!--Footer-->
+
+
+
                         <div class="flex justify-end pt-2">
-                        <button class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2" type='submit'></button>
-                        <button class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400"submit>新規登録</button>
+                        <button class="px-4 bg-transparent p-3 rounded-lg text-red-500 hover:bg-red-100 hover:text-red-400 mr-2"
+                        name = "delete" onclick='return confirm("本当に削除しますか？");'>Delete</button>
+
+
+                        <button class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400 mr-2"
+                        name = "edit" type="submit" id="editButton">編集完了</button>
                         </div>
 
                     </div>
                 </form>
             </div> {{-- Modal --}}
+            @php
+              $topURL = route('top');
+            @endphp
             <script>
                 var openmodal = document.querySelectorAll('.modal-open')
                 // const body = document.querySelector('body')
+                const topURL = '{{$topURL}}';
                 toggleModal();
 
-                // for (var i = 0; i < openmodal.length; i++) {
-                // openmodal[i].addEventListener('click', function(event){
-                //     event.preventDefault()
-                //     // toggleModal()
-                // })
-                // }
+                for (var i = 0; i < openmodal.length; i++) {
+                openmodal[i].addEventListener('click', function(event){
+                    event.preventDefault()
+                    window.location.href = topURL;
+                })
+                }
 
-                // const overlay = document.querySelector('.modal-overlay')
-                // overlay.addEventListener('click', toggleModal)
+                const overlay = document.querySelector('.modal-overlay')
+                overlay.addEventListener('click', jumpTop)
 
-                // var closemodal = document.querySelectorAll('.modal-close')
-                // for (var i = 0; i < closemodal.length; i++) {
-                // closemodal[i].addEventListener('click', toggleModal)
-                // }
+                var closemodal = document.querySelectorAll('.modal-close')
+                for (var i = 0; i < closemodal.length; i++) {
+                closemodal[i].addEventListener('click', jumpTop)
+                }
 
-                // document.onkeydown = function(evt) {
-                // evt = evt || window.event
-                // var isEscape = false
-                // if ("key" in evt) {
-                //     isEscape = (evt.key === "Escape" || evt.key === "Esc")
-                // } else {
-                //     isEscape = (evt.keyCode === 27)
-                // }
-                // if (isEscape && document.body.classList.contains('modal-active')) {
-                //     // toggleModal()
-                // }
-                // };
+                document.onkeydown = function(evt) {
+                evt = evt || window.event
+                var isEscape = false
+                if ("key" in evt) {
+                    isEscape = (evt.key === "Escape" || evt.key === "Esc")
+                } else {
+                    isEscape = (evt.keyCode === 27)
+                }
+                if (isEscape && document.body.classList.contains('modal-active')) {
+                    window.location.href = topURL;
+                }
+                };
+
+                function jumpTop(){
+                    window.location.href = topURL;
+                }
 
 
                 function toggleModal () {
@@ -288,7 +303,69 @@
                 body.classList.toggle('modal-active')
                 }
 
+                function setOnEnterClickButton(targetButtonId,formName){
+                var form = (formName == null) ? document.forms[0] : document.forms[formName];
+                var targetButton = document.getElementById(targetButtonId);
+                document.onkeypress=function(e){
+                    e = e ? e : event;
+                    var keyCode= e.charCode ? e.charCode : ((e.which) ? e.which : e.keyCode);
+                    var elem = e.target ? e.target : e.srcElement;
+                    if(Number(keyCode) == 13) {//13=EnterKey
+                    if(!isIgnoreEnterKeySubmitElement(elem)){
+                        targetButton.click();
+                    }
+                    return isInputElement(elem) ? false : true;
+                    }
+                }
+                }
+                function isIgnoreEnterKeySubmitElement(elem){
+                var tag = elem.tagName;
+                if(tag.toLowerCase() == "textarea"){
+                    return true;
+                }
+                switch(elem.type){
+                    case "button":
+                    case "submit":
+                    case "reset":
+                    case "image":
+                    case "file":
+                    return true;
+                }
+                return false;
+                }
+                function isInputElement(elem){
+                switch(elem.type){
+                    case "text":
+                    case "radio":
+                    case "checkbox":
+                    case "password":
+                    return true;
+                }
+                return false;
+                }
+                setOnEnterClickButton('editButton');
 
+                $(function(){
+                $("input").on("keydown",function(ev){
+                    if ((ev.which && ev.which === 13) ||(ev.keyCode && ev.keyCode === 13)){
+                    return false;
+                    } else {
+                    return true;
+                    }
+                });
+                });
+
+                $(function(){
+                $("select").focus(function(){
+                $(this).on("keydown",function(ev){
+                    if ((ev.which && ev.which === 13) ||(ev.keyCode && ev.keyCode === 13)){
+                    return false;
+                    } else {
+                    return true;
+                    }
+                });
+                });
+                });
             </script>
       </div>
 </div>

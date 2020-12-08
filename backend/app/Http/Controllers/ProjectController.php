@@ -56,15 +56,21 @@ class ProjectController extends Controller
 
     public function editStore(CreateProjectRequest $request,$project_id){
         $project = Project::find($project_id);
-        // dd($project);
-        $project->fill([
-            'user_id'         => $project->user->id,
-            'title'           => $request->title,
-            'description'     => $request->description,
-            'github_url'      => $request->github_url,
-            'drawio_url'      => $request->drawio_url,
-            'mindmap_url'     => $request->mindmap_url,
-        ])->save();
+
+        if($request->has('edit')){
+            $project->fill([
+                'user_id'         => $project->user->id,
+                'title'           => $request->title,
+                'description'     => $request->description,
+                'github_url'      => $request->github_url,
+                'drawio_url'      => $request->drawio_url,
+                'mindmap_url'     => $request->mindmap_url,
+            ])->save();
+
+        }elseif($request->has('delete')){
+            $project = Project::find($project_id)->delete();
+        }
+
         $projects = Project::all();
 
         return redirect()->route('top',['projects'=>$projects]);
