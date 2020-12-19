@@ -219,24 +219,43 @@
 
                         <label class="block">
                             <span class="text-white">プロジェクト名</span>
-                        <input name="title" class="form-input mt-1 block w-full text-black" placeholder="ProjectTitle" value="{{old('title', $project->title)}}">
+                            <input name="title" class="form-input mt-1 block w-full text-black" placeholder="ProjectTitle" value="{{old('bizzme_url',$project->title)}}">
                         </label>
                         <label class="block">
                             <span class="text-white">プロジェクト概要</span>
-                            <textarea name="description" class="form-textarea mt-1 block w-full text-black" rows="3" placeholder="Enter some long form content.">{{old('description', $project->description)}}</textarea>
+                            <textarea name="description" class="form-textarea mt-1 block w-full text-black" rows="3" placeholder="Enter some long form content.">{{old('description',$project->description)}}</textarea>
                           </label>
+
                         <label class="block">
                             <span class="text-white">Github カンバンURL</span>
-                            <input name="github_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@github.com" value="{{old('github_url', $project->github_url)}}">
-                          </label>
-                          <label class="block">
+                            <input name="github_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@github.com" value="{{old('github_url',$project->github_url)}}">
+                        </label>
+                        <label class="block">
                             <span class="text-white">draw.io 設計図</span>
-                            <input name="drawio_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@drawio.com" value="{{old('drawio_url', $project->drawio_url)}}">
-                          </label>
-                          <label class="block">
+                            <input name="drawio_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@drawio.com" value="{{old('drawio_url',$project->drawio_url)}}">
+                        </label>
+                        <label class="block">
                             <span class="text-white">coggle.it マインドマップ</span>
-                            <input name="mindmap_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@coggle.com" value="{{old('mindmap_url', $project->mindmap_url)}}">
-                          </label>
+                            <input name="mindmap_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@coggle.com" value="{{old('mindmap_url',$project->mindmap_url)}}">
+                        </label>
+                        <label class="block">
+                            <div class="flex mt-6">
+                                <label class="flex items-center">
+                                  <input id="isWorking" name="isWorking" value=true type="checkbox" class="form-checkbox"onchange="chk1(this)"
+                                  @php
+                                    if($project->isWorking){
+                                        echo ('checked');
+                                    }
+                                  @endphp
+                                  >
+                                  <span class="ml-2">作業中フラグ</span>
+                                  <small class="ml-8">BIZZ MEで作業を公開しましょう。</small>
+                                </label>
+                            </div>
+                        </label>
+                        <label class="block" id="bizzme_form" style="display:none;">
+                            <span class="text-white">BIZZ ME　作業部屋 <a href="https://bizmee.net/" target="_blank" class="underline" > こちらから部屋を作成できます。</a></span>
+                            <input name="bizzme_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="https://bizmee.net/room name" value="{{old('bizzme_url',$project->bizzme_url)}}"></label>
                         <!--Footer-->
 
 
@@ -256,7 +275,34 @@
             @php
               $topURL = route('top');
             @endphp
+            <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.js"
+            integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM="
+            crossorigin="anonymous"></script>
             <script>
+                //onChangeでしかよばれないと更新されていない問題の解決
+
+                checkbox = document.getElementById("isWorking");
+                chk1(checkbox);
+                function chk1(checkbox){
+                    console.log(checkbox.checked);
+                    bizzme_form = document.getElementById("bizzme_form");
+                    if(checkbox.checked){
+                        $(bizzme_form).show();
+                    } else {
+                        $(bizzme_form).hide();
+                    }
+
+                    // document.getElementById("span8").textContent = val;
+
+                    // if(val=== "red"){
+                    //     document.form8.c8[1].checked = false;
+                    // }else{
+                    //     document.form8.c8[0].checked = false;
+                    // }
+                }
+                //
+
                 var openmodal = document.querySelectorAll('.modal-open')
                 // const body = document.querySelector('body')
                 const topURL = '{{$topURL}}';

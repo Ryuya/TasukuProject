@@ -40,6 +40,8 @@ class ProjectController extends Controller
                 'github_url'      => $request->github_url,
                 'drawio_url'      => $request->drawio_url,
                 'mindmap_url'     => $request->mindmap_url,
+                'bizzme_url'      => $request->bizzme_url,
+                'isWorking'       => $request->isWorking,
             ])->save();
             $project->save();
             $projects = Project::all();
@@ -56,7 +58,7 @@ class ProjectController extends Controller
 
     public function editStore(CreateProjectRequest $request,$project_id){
         $project = Project::find($project_id);
-
+        // dd($request);
         if($request->has('edit')){
             $project->fill([
                 'user_id'         => $project->user->id,
@@ -65,6 +67,8 @@ class ProjectController extends Controller
                 'github_url'      => $request->github_url,
                 'drawio_url'      => $request->drawio_url,
                 'mindmap_url'     => $request->mindmap_url,
+                'bizzme_url'      => $request->bizzme_url,
+                'isWorking'       => (bool)$request->isWorking,
             ])->save();
 
         }elseif($request->has('delete')){

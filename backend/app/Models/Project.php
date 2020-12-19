@@ -19,6 +19,8 @@ class Project extends Model
         'github_url',
         'drawio_url',
         'mindmap_url',
+        'bizzme_url',
+        'isWorking',
         'tags',
     ];
 

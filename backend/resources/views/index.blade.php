@@ -22,14 +22,15 @@
       {{-- TOPページ文言 --}}
       <div class="max-w-6xl mx-auto px-5 py-24">
         <div class="flex flex-wrap w-full mb-8 flex-col items-center text-center divide-y divide-yellow-500">
-          <h1 class="title-font mb-2 text-4xl font-extrabold leading-10 tracking-tight text-left sm:text-5xl sm:leading-none md:text-6xl"> Tasuku </h1>
+          <h1 class="title-font mb-2 text-4xl font-extrabold leading-10 tracking-tight text-left sm:text-5xl sm:leading-none md:text-6xl"> Tasuku Live </h1>
           <p class="lg:w-1/2 w-full leading-relaxed text-base p-3 ">独習者支援サービス</p>
           <div class="p-8 ">
-                <p>作りたい企画を新規Githubリポジトリで立ち上げ、今からやることをGithubのカンバン(Project)のURLを貼って公開しましょう！</p>
-                <p>誰かがあなたに手をさしのべてくれるかもしれません！あなたのそのやりとりが他の人には教材となります。広告を貼って、収益を得ましょう。</p>
-                <p>またdraw.ioのURLを貼り企画を共有しましょう。マインドマップから次にやるタスクを他の経験者ユーザーと共に洗い出し、<br>そのタスクについて知見のあるユーザーは質問者の作成したマインドマップへブランチを切り「参考URL」や「〇〇は理解してますか？」などのヒアリングをして進捗を助けましょう。</p>
-                <p>解決したタスクのやりとりのマインドノードは広告をつけるか非公開にして販売することができます。</p>
-                <h1>（リワードは回答者、質問者に分配されます）</h1>
+                <p class="p-4 ">あなたのいまからやるタスクをタイトルに、BIZZZ ME で作業部屋を立ち上げ 画面共有して他のユーザーからアドバイスをもらいましょう。</p>
+                <p class="p-4 ">作りたい企画を新規Githubリポジトリで立ち上げ、今からやることをGithubのカンバン(Project)のURLを貼って公開しましょう！</p>
+                <p class="p-4 ">誰かがあなたに手をさしのべてくれるかもしれません！あなたのそのやりとりが他の人には教材となります。</p>
+                <p class=" ">作業内容を録画してYoutubeチャンネルに限定公開して収益を得ましょう。</p>
+                <p class="p-4 ">またdraw.ioのURLを貼り企画を共有しましょう<br>BIZZ ME 内の議事録で「参考URL」や「〇〇は理解してますか？」などのヒアリングをして進捗を助けましょう。</p>
+                <h1>将来的にこのサービスではタスクを作成した本人とタスク解決を手助けしたユーザーへ報酬が分配される仕組みを作るのを目指しています</h1>
           </div>
 
             <div class="flex flex-wrap w-full  flex-col items-center text-center">
@@ -51,12 +52,12 @@
                                 </div>
                                 @php
                                     //TODO userが放送中であるか取得する。
-                                    $isOnAIR = true;
+                                    $isOnAIR = $project->isWorking;
                                 @endphp
                                 @if ($isOnAIR)
                                     <div class="">
                                     <button class=" px-4 right bg-red-500 p-3 rounded-lg text-white hover:bg-indigo-400 mr-2"
-                                  name = "edit">ON AIR</button>
+                                  ><a href="{{ $project->bizzme_url }}" target="_blank">ON AIR</a></button>
                                   </div>
                                 @endif
 
@@ -82,23 +83,23 @@
                                     </div>
                             </div>
                         </div>
-                        <div class=" p-6 flex items-center justify-around rounded-lg xl:h-12">
+                        <div class=" p-10 flex items-center justify-around rounded-lg xl:h-12">
                             @if ($project->github_url)
-                            <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                            <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
                                     <a href="{{ $project->github_url }}" target="_blank">
                                         <img src="https://github.com/favicon.ico">
                                     </a>
                             </div>
                             @endif
                             @if ($project->drawio_url)
-                                <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                                <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
                                         <a href="{{ $project->drawio_url }}" target="_blank">
                                             <img src="https://draw.io/favicon.ico">
                                         </a>
                                 </div>
                             @endif
                             @if ($project->mindmap_url)
-                                <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                                <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
                                         <a href="{{ $project->mindmap_url }}" target="_blank">
                                             <img src="https://coggle.it/favicon.ico">
                                         </a>
@@ -247,18 +248,26 @@
                             <span class="text-white">プロジェクト概要</span>
                             <textarea name="description" class="form-textarea mt-1 block w-full text-black" rows="3" placeholder="Enter some long form content."></textarea>
                           </label>
+                          <label class="block">
+                            <span class="text-white">BIZZ ME　作業部屋</span>
+                            <input name="mindmap_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@coggle.com">
+                        </label>
                         <label class="block">
                             <span class="text-white">Github カンバンURL</span>
                             <input name="github_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@github.com">
-                          </label>
-                          <label class="block">
+                        </label>
+                        <label class="block">
                             <span class="text-white">draw.io 設計図</span>
                             <input name="drawio_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@drawio.com">
-                          </label>
-                          <label class="block">
+                        </label>
+                        <label class="block">
                             <span class="text-white">coggle.it マインドマップ</span>
                             <input name="mindmap_url" type="url" class="form-input mt-1 block w-full text-black" placeholder="project@coggle.com">
-                          </label>
+                        </label>
+                        <label class="block">
+                            <span class="text-white">作業中</span>
+                            <input name="mindmap_url" type="checkbox" class="form-input mt-1 block w-full text-black" >
+                        </label>
                         <!--Footer-->
                         <div class="flex justify-end pt-2">
                         <button class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2" type='submit'></button>
